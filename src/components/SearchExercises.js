@@ -3,6 +3,7 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 import HorizontalScrollbar from './HorizontalScrollbar';
+import { Search } from '@mui/icons-material';
 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState('');
@@ -17,6 +18,13 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
     fetchExercisesData();
   }, []);
+
+  const handleKeyDown = (event) => {
+    if(event.key === 'Enter')
+    {
+      handleSearch(Search);
+    }
+  }
 
   const handleSearch = async () => {
     if (search) {
@@ -47,6 +55,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           sx={{ input: { fontWeight: '700', border: 'none', borderRadius: '4px' }, width: { lg: '1170px', xs: '350px' }, backgroundColor: '#fff', borderRadius: '40px' }}
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
+          onKeyDown={handleKeyDown}
           placeholder="Search Exercises"
           type="text"
         />
